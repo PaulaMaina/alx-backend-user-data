@@ -28,8 +28,8 @@ def filter_datum(
 def get_logger() -> logging.Logger:
     """Creates a new logger"""
     logger = logging.getLogger("user_data")
-    stream_handler = logging.streamHandler()
-    stream_handler.setFormatter(redactingFormatter(PII_FIELDS))
+    stream_handler = logging.StreamHandler()
+    stream_handler.setFormatter(RedactingFormatter(PII_FIELDS))
     logger.setLevel(logging.INFO)
     logger.propagate = False
     logger.addHandler(stream_handler)
@@ -38,10 +38,10 @@ def get_logger() -> logging.Logger:
 
 def get_db() -> mysql.connector.connection.MySQLConnection:
     """Creates a connector to a MySQL database"""
-    db_host = os.get_env("PERSONAL_DATA_DB_HOST", "localhost")
-    db_name = os.get_env("PERSONAL_DATA_DB_NAME", "")
-    db_user = os.get_env("PERSONAL_DATA_DB_USERNAME", "root")
-    db_pwd = os.get_env("PERSONAL_DATA_DB_PASSWORD", "")
+    db_host = os.getenv("PERSONAL_DATA_DB_HOST", "localhost")
+    db_name = os.getenv("PERSONAL_DATA_DB_NAME", "")
+    db_user = os.getenv("PERSONAL_DATA_DB_USERNAME", "root")
+    db_pwd = os.getenv("PERSONAL_DATA_DB_PASSWORD", "")
 
     conn = mysql.connector.connect(
         host=db_host,

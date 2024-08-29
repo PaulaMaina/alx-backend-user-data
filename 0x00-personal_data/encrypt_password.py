@@ -3,7 +3,7 @@
 import bcrypt
 
 
-def has_password(password: str) -> bytes:
+def hash_password(password: str) -> bytes:
     """Hashes a password"""
     return bcrypt.hashpw(password.encode('utf-8'), bcrypt.gensalt())
 

@@ -14,7 +14,7 @@ reg = {
 PII_FIELDS = ("name", "email", "phone", "ssn", "password")
 
 
-def filter_danum(
+def filter_datum(
     fields: List[str],
     redaction: str,
     message: str,

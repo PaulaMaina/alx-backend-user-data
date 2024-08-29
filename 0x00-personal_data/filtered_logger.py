@@ -56,13 +56,13 @@ def get_db() -> mysql.connector.connection.MySQLConnection:
 def main():
     """Logs info about the user to a table"""
     fields = "name,email,phone,ssn,password,ip,last_login,user_agent"
-    columns = fields.split(",")
+    columns = fields.split(',')
     query = "SELECT {} FROM users;".format(fields)
     info_logger = get_logger()
     conn = get_db()
 
     with conn.cursor() as cursor:
-        corsor.execute(query)
+        cursor.execute(query)
         rows = cursor.fetchall()
         for row in rows:
             record = map(

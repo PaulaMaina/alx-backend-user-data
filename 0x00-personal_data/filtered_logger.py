@@ -55,8 +55,8 @@ def get_db() -> mysql.connector.connection.MySQLConnection:
 
 def main():
     """Logs info about the user to a table"""
-    fields = "name, email, phone, ssn, password, ip, last_login, user_agent"
-    columns = fields.split(", ")
+    fields = "name,email,phone,ssn,password,ip,last_login,user_agent"
+    columns = fields.split(",")
     query = "SELECT {} FROM users;".format(fields)
     info_logger = get_logger()
     conn = get_db()
@@ -84,14 +84,14 @@ class RedactingFormatter(logging.Formatter):
     FORMAT_FIELDS = ('name', 'levelname', 'asctime', 'message')
     SEPARATOR = ";"
 
-    def __init__(self):
+    def __init__(self, fields: List[str]):
         super(RedactingFormatter, self).__init__(self.FORMAT)
         self.fields = fields
 
     def format(self, record: logging.LogRecord) -> str:
         """Format a log record"""
         msg = super(RedactingFormatter, self).format(record)
-        txt = filter_danum(self.fields, self.REDACTION, msg, self.SEPARATOR)
+        txt = filter_datum(self.fields, self.REDACTION, msg, self.SEPARATOR)
         return txt
 
 

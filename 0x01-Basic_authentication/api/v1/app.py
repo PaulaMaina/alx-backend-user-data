@@ -20,6 +20,11 @@ if getenv('AUTH_TYPE') == "auth":
     auth = Auth()
 
 
+if getenv('AUTH_TYPE') == "basic_auth":
+    from api.v1.auth.basic_auth import BasicAuth
+    auth = BasicAuth()
+
+
 @app.before_request
 def filter_request():
     if auth is None:

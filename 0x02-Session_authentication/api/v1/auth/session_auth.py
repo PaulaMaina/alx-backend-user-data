@@ -7,6 +7,7 @@ import uuid
 class SessionAuth(Auth):
     """Implements session authentication for the current user"""
     user_id_by_session_id = {}
+
     def create_session(self, user_id: str = None) -> str:
         """Creates a session id for a user id"""
         if not (user_id and isinstance(user_id, str)):
@@ -21,4 +22,3 @@ class SessionAuth(Auth):
         if not(session_id and isinstance(session_id, str)):
             return None
         return self.user_id_by_session_id.get(session_id)
-

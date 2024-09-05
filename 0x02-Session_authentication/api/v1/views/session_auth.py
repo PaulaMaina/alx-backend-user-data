@@ -43,7 +43,7 @@ def login() -> Tuple[str, int]:
 def logout() -> Tuple[str, int]:
     """Deletes the user session"""
     from api.v1.app import auth
-    destroyed = auth.destroy_session(request)
+    sess_destroyed = auth.destroy_session(request)
     if not sess_destroyed:
         abort(404)
     return jsonify({})

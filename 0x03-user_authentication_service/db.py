@@ -1,8 +1,10 @@
 #!/usr/bin/env python3
 """DB module"""
 from sqlalchemy import create_engine, tuple_
+from sqlalchemy.exc import InvalidRequestError
 from sqlalchemy.ext.declarative import declarative_base
 from sqlalchemy.orm import sessionmaker
+from sqlalchemy.orm.exc import NoResultFound
 from sqlalchemy.orm.session import Session
 from user import Base, User
 
@@ -35,3 +37,20 @@ class DB:
             self._session.rollback()
             new_user = None
         return new_user
+
+    def find_user_by(self, **kwargs):
+        """Finds a user using filters"""
+        fields = []
+        values = []
+        for key, value in kwargs.items():
+            if hasattr(User, key):
+                fields.append(getattr(User, key))
+                values.append(value)
+            else:
+                raise InvalidRequestError
+        results = self._session.query(User).filter(
+            tuple_(*fields).in_([tuple(values)])
+        ).first()
+        if results is None:
+            raise NoResultFound()
+        return results

@@ -21,7 +21,7 @@ def register_user(email: str, password: str) -> None:
     assert response.json() == {"message": "email already registered"}
 
 
-def log_in_wrong_password(email:str, password: str) -> None:
+def log_in_wrong_password(email: str, password: str) -> None:
     """Test for checking for wrong password used during login"""
     url = "{}/sessions".format(BASE_URL)
     body = {
@@ -93,6 +93,7 @@ def update_password(email: str, reset_token: str, new_password: str) -> None:
     response = requests.put(url, data=body)
     assert response.status_code == 200
     assert response.json() == {"email": email, "message": "Password updated"}
+
 
 EMAIL = "guillaume@holberton.io"
 PASSWD = "b4l0u"

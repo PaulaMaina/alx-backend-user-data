@@ -82,7 +82,7 @@ def reset_password_token(email: str) -> str:
     return response.json().get("reset_token")
 
 
-def update_password(email: str, reset_token: str, neW_password: str) -> None:
+def update_password(email: str, reset_token: str, new_password: str) -> None:
     """Test for updating password"""
     url = "{}/reset_password".format(BASE_URL)
     body = {
